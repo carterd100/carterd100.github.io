@@ -3,14 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Dr. Carter D - Expert Eye Specialist. Advanced Eye Care and Vision Health.">
+    <meta name="description" content="Dr. Carter D - Premium Medical Bio Link for advanced eye care.">
     <title>Dr. Carter D | Premium Medical Bio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* تحسين تحميل الخطوط */
-        @font-face { font-display: swap; }
+    
+    <link rel="preload" as="image" href="eye.webp">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
 
+    <style>
+        @font-face { font-display: swap; }
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f0f4f8;
@@ -29,8 +33,8 @@
             border-radius: 35px;
             text-align: center;
             box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            contain: content; /* تحسين أداء الريندر */
         }
-        /* الصورة تظهر فوراً لزيادة الأداء */
         .profile-img {
             width: 100px;
             height: 100px;
@@ -43,6 +47,7 @@
         h1 { font-size: 1.6rem; color: #1e293b; margin: 0; }
         .tagline { color: #0ea5e9; font-weight: 600; font-size: 0.9rem; margin-top: 5px; }
 
+        /* الأزرار مع تأثير الارتفاع */
         .btn-demo {
             display: flex;
             align-items: center;
@@ -53,37 +58,43 @@
             text-decoration: none;
             font-weight: 700;
             cursor: pointer;
-            border: 1px solid transparent;
-            transition: transform 0.1s ease-out, background-color 0.2s ease;
-            
-            /* تقليل مدة الأنيميشن لسرعة الـ FCP */
+            border: 2px solid transparent;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             opacity: 0;
-            animation: fastFadeIn 0.3s ease-out forwards;
+            animation: fastFadeIn 0.5s ease-out forwards;
+        }
+
+        /* حالة الارتفاع عند الضغط */
+        .btn-demo.is-active {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+            border-color: #0ea5e9;
         }
         
-        .btn-demo:active { transform: scale(0.96); }
         .btn-demo i { margin-right: 15px; font-size: 1.2rem; }
-
         .btn-appointment { background-color: #0ea5e9; color: white; }
         .btn-whatsapp { background-color: #25d366; color: white; }
         .btn-email { background-color: #f1f5f9; color: #1e293b; border: 1px solid #e2e8f0; }
 
-        /* تأخيرات بسيطة جداً لا تلاحظها أدوات القياس */
-        .btn-1 { animation-delay: 0.05s; }
-        .btn-2 { animation-delay: 0.1s; }
-        .btn-3 { animation-delay: 0.15s; }
-        .btn-4 { animation-delay: 0.2s; }
-
+        /* الأيقونات السفلية: تبدأ رمادية وتكبر وتصبح زرقاء عند الضغط */
         .social-footer {
-            margin-top: 20px; 
-            color: #94a3b8; 
-            font-size: 1.5rem;
+            margin-top: 25px; 
+            display: flex;
+            justify-content: center;
             opacity: 0;
-            animation: fastFadeIn 0.3s forwards 0.25s;
+            animation: fastFadeIn 0.5s forwards 0.6s;
         }
-        
-        .social-footer i { cursor: pointer; margin: 0 15px; transition: color 0.2s; }
-        .social-footer i:hover { color: #0ea5e9; }
+        .social-footer i {
+            cursor: pointer; 
+            margin: 0 15px; 
+            color: #94a3b8; /* رمادي */
+            font-size: 1.6rem;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .social-footer i.is-active {
+            color: #0ea5e9; /* أزرق */
+            transform: scale(1.3);
+        }
 
         @keyframes fastFadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -96,11 +107,12 @@
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: #1e293b;
+            background: #1e293b; /* التنبيه الأسود الأصلي */
             color: white;
             padding: 12px 25px;
             border-radius: 50px;
             z-index: 1000;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
     </style>
 </head>
@@ -109,44 +121,61 @@
     <div id="custom-alert" role="alert">Your custom link will be placed here! 🚀</div>
 
     <div class="container">
-        <img src="eye.webp" alt="Dr. Carter D Profile Picture" class="profile-img">
+        <img src="eye.webp" alt="Dr. Carter D Specialist" class="profile-img" width="100" height="100">
         
         <h1>Dr. Carter D</h1>
         <div class="tagline">Expert Eye Specialist</div>
         <p style="color: #64748b; font-size: 0.85rem; margin-bottom: 30px;">Advanced Eye Care & Vision Health</p>
 
-        <div class="btn-demo btn-appointment btn-1" onclick="showAlert()" role="button" aria-label="Book Appointment">
-            <i class="fas fa-calendar-alt" aria-hidden="true"></i> Appointment Link Here
+        <div class="btn-demo btn-appointment" onclick="handleInteraction(this)">
+            <i class="fas fa-calendar-alt"></i> Appointment Link Here
         </div>
 
-        <div class="btn-demo btn-whatsapp btn-2" onclick="showAlert()" role="button" aria-label="Contact via WhatsApp">
-            <i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp Link Here
+        <div class="btn-demo btn-whatsapp" onclick="handleInteraction(this)">
+            <i class="fab fa-whatsapp"></i> WhatsApp Link Here
         </div>
 
-        <div class="btn-demo btn-email btn-3" onclick="showAlert()" role="button" aria-label="Send Email">
-            <i class="fas fa-envelope" aria-hidden="true"></i> Email Contact Here
+        <div class="btn-demo btn-email" onclick="handleInteraction(this)">
+            <i class="fas fa-envelope"></i> Email Contact Here
         </div>
 
-        <div class="btn-demo btn-email btn-4" onclick="showAlert()" role="button" aria-label="View Medical Report">
-            <i class="fas fa-file-medical" aria-hidden="true"></i> Medical Report (PDF)
+        <div class="btn-demo btn-email" onclick="handleInteraction(this)">
+            <i class="fas fa-file-medical"></i> Medical Report (PDF)
         </div>
 
         <div class="social-footer">
-            <i class="fab fa-instagram" onclick="showAlert()" aria-label="Instagram Profile"></i>
-            <i class="fab fa-facebook" onclick="showAlert()" aria-label="Facebook Profile"></i>
-            <i class="fas fa-map-marker-alt" onclick="showAlert()" aria-label="Office Location"></i>
+            <i class="fab fa-instagram" onclick="handleInteraction(this)"></i>
+            <i class="fab fa-facebook" onclick="handleInteraction(this)"></i>
+            <i class="fas fa-map-marker-alt" onclick="handleInteraction(this)"></i>
         </div>
     </div>
 
     <script>
         let timeout;
-        function showAlert() {
+
+        function handleInteraction(element) {
+            if (window.event) event.stopPropagation();
+
+            // إعادة تعيين الكل
+            document.querySelectorAll('.btn-demo, .social-footer i').forEach(item => {
+                item.classList.remove('is-active');
+            });
+
+            // تفعيل العنصر المختار
+            element.classList.add('is-active');
+
+            // التنبيه الأسود
             const alertBox = document.getElementById('custom-alert');
             clearTimeout(timeout);
             alertBox.style.display = 'block';
-            timeout = setTimeout(() => { alertBox.style.display = 'none'; }, 2000);
+            timeout = setTimeout(() => { alertBox.style.display = 'none'; }, 1000);
         }
+
+        document.addEventListener('click', () => {
+            document.querySelectorAll('.btn-demo, .social-footer i').forEach(item => {
+                item.classList.remove('is-active');
+            });
+        });
     </script>
 </body>
 </html>
-
